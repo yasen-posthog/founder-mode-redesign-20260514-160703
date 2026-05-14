@@ -1,0 +1,31 @@
+:root {
+    --brand-primary: #3B82F6;
+    --brand-accent: #3B82F6;
+    --brand-neutral: #F8FAFC;
+}
+
+html { scroll-behavior: smooth; }
+
+/* Hide the default `<details>` marker so our custom chevron is the only affordance. */
+summary::-webkit-details-marker { display: none; }
+summary::marker { content: ''; }
+
+/* Sections start hidden until IntersectionObserver in script.js adds `.reveal--visible`.
+ * Gracefully degrades if JS fails: a `noscript` rule below shows everything. */
+@media (prefers-reduced-motion: no-preference) {
+    .reveal {
+        opacity: 0;
+        transform: translateY(16px);
+        transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1);
+        will-change: opacity, transform;
+    }
+    .reveal.reveal--visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Card lift uses transform — give it the same easing as the reveal. */
+@media (prefers-reduced-motion: no-preference) {
+    .group { transition-timing-function: cubic-bezier(.16,1,.3,1); }
+}
